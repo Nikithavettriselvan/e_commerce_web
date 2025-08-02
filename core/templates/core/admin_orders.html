@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Orders</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/admin_orders.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>📦 All Orders</h1>
+
+        <!-- 🔙 Back to Dashboard Link -->
+        <div style="margin-bottom: 20px;">
+            <a href="{% url 'admin_dashboard' %}" style="text-decoration: none; color: #007bff;">⬅ Back to Dashboard</a>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% for order in orders %}
+            <div class="order-card status-{{ order.status|lower }}">
+                <h2>Order #{{ order.id }}</h2>
+                <p><strong>User:</strong> {{ order.user.username }}</p>
+                <p><strong>Address:</strong> {{ order.shipping_address }}</p>
+                <p><strong>Total:</strong> ₹{{ order.total_price }}</p>
+                <p><strong>Placed on:</strong> {{ order.created_at }}</p>
+                <p><strong>Status:</strong> {{ order.status }}</p>
+
+                <form method="POST" action="{% url 'update_order_status' order.id %}">
+                    {% csrf_token %}
+                    <label>Change Status:</label>
+                    <select name="status">
+                        {% for code, label in order.STATUS_CHOICES %}
+                            <option value="{{ code }}" {% if order.status == code %}selected{% endif %}>{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit">Update</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No orders found.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

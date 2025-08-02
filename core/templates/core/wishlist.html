@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Wishlist</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/wishlist.css' %}">
+</head>
+<body>
+    <h1>Wishlist</h1>
+
+    {% if wishlist_items %}
+        <div class="wishlist-container">
+            {% for item in wishlist_items %}
+                <div class="wishlist-item">
+                    <a href="{% url 'product_detail' item.product.id %}">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                        {% endif %}
+                        <h3>{{ item.product.name }}</h3>
+                    </a>
+                    <p><strong>Price:</strong> ₹{{ item.product.price }}</p>
+
+                    <form method="POST" action="{% url 'remove_from_wishlist' item.product.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Remove</button>
+                    </form>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Your wishlist is empty.</p>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="home-link">🏠 Back to Home</a>
+</body>
+</html>

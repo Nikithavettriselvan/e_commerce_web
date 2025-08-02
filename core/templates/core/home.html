@@ -1,0 +1,125 @@
+<!-- templates/home.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - E-Shop{% endblock %}
+
+{% block content %}
+
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-overlay">
+        <div class="hero-text-left">
+            <h1>Style Meets Convenience</h1>
+            <p>Shop your favorite products online — quick, easy, and affordable.</p>
+            <div class="shop-now-container">
+            <a href="#product-list" class="shop-now-btn">Shop Now</a>
+        </div>
+    </div>
+  </div>
+</section>
+
+<!--  CATEGORY ICONS -->
+<div class="category-icons">
+    <a href="?category=Shirts" class="category-icon">
+        <img src="{% static 'images/shirts.webp' %}" alt="Shirts">
+        <p>Shirts</p>
+    </a>
+    <a href="?category=Sarees" class="category-icon">
+        <img src="{% static 'images/saree3.jpg' %}" alt="Sarees">
+        <p>Sarees</p>
+    </a>
+    <a href="?category=Pants" class="category-icon">
+        <img src="{% static 'images/pants.jpg' %}" alt="Pants">
+        <p>Pants</p>
+    </a>
+    <a href="?category=Frocks" class="category-icon">
+        <img src="{% static 'images/frocks.webp' %}" alt="Frocks">
+        <p>Frocks</p>
+    </a>
+    <a href="?category=Kurtis" class="category-icon">
+        <img src="{% static 'images/kurtis.webp' %}" alt="Kurtis">
+        <p>Kurtis</p>
+    </a>
+    <a href="?category=Sarees" class="category-icon">
+        <img src="{% static 'images/sarees.jpg' %}" alt="Sarees">
+        <p>Sarees</p>
+    </a>
+    
+</div>
+
+{% if selected_category %}
+    <a href="{% url 'home' %}" class="clear-filter-glow">✖ Clear Filter</a>
+{% endif %}
+
+
+<!-- 🛍️ Product Listings -->
+<h2 id="product-list">Products</h2>
+<div class="product-container">
+    {% for product in products %}
+        <div class="product">
+            <a href="{% url 'product_detail' product.id %}">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                {% endif %}
+                <h3>{{ product.name }}</h3>
+            </a>
+            <p>₹{{ product.price }}</p>
+            <p>{{ product.description|truncatechars:50 }}</p>
+
+            {% if product.stock == 0 %}
+                <span class="out-of-stock">Out of Stock</span>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p>No products available.</p>
+    {% endfor %}
+</div>
+
+<section class="scroll-card-wrapper">
+    <div class="scroll-card-container">
+        <div class="scroll-card">
+            <img src="{% static 'images/new.webp' %}" alt="New Arrivals">
+            <h3>New Arrivals</h3>
+            <p>Check out the latest styles.</p>
+            <span class="card-badge green">Shop Now</span>
+        </div>
+
+        <div class="scroll-card">
+            <img src="{% static 'images/sale.jpg' %}" alt="Festive Sale">
+            <h3>Festive Sale</h3>
+            <p>Enjoy 20% OFF this season.</p>
+            <span class="card-badge sale">20% OFF</span>
+        </div>
+
+        <div class="scroll-card">
+            <img src="{% static 'images/best.jpg' %}" alt="Bestsellers">
+            <h3>Bestsellers</h3>
+            <p>Top-rated products loved by all.</p>
+            <span class="card-badge">Explore</span>
+        </div>
+
+        <div class="scroll-card">
+            <img src="{% static 'images/new.webp' %}" alt="New Arrivals">
+            <h3>New Arrivals</h3>
+            <p>Check out the latest styles.</p>
+            <span class="card-badge green">Shop Now</span>
+        </div>
+        <div class="scroll-card">
+            <img src="{% static 'images/sale.jpg' %}" alt="Festive Sale">
+            <h3>Festive Sale</h3>
+            <p>Enjoy 20% OFF this season.</p>
+            <span class="card-badge sale">20% OFF</span>
+        </div>
+
+        <div class="scroll-card">
+            <img src="{% static 'images/best.jpg' %}" alt="Bestsellers">
+            <h3>Bestsellers</h3>
+            <p>Top-rated products loved by all.</p>
+            <span class="card-badge">Explore</span>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

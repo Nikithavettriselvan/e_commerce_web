@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Product</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/edit_product.css' %}">
+</head>
+<body>
+<div class="container">
+    <h2>✏️ Edit Product</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>Name:</label><br>
+        <input type="text" name="name" value="{{ product.name }}" required><br><br>
+
+        <label>Description:</label><br>
+        <textarea name="description">{{ product.description }}</textarea><br><br>
+
+        <label>Price:</label><br>
+        <input type="number" name="price" step="0.01" value="{{ product.price }}"><br><br>
+
+        <label>Stock Quantity:</label>
+        <input type="number" name="stock" min="0" value="{{ product.stock }}" required>
+
+        <label for="sizes">Sizes (comma-separated):</label>
+        <input type="text" name="sizes" id="sizes" value="{{ product.sizes }}">
+
+        <label for="category">Category:</label>
+        <select name="category" required>
+            <option value="Shirts" {% if product.category == 'Shirts' %}selected{% endif %}>Shirts</option>
+            <option value="Pants" {% if product.category == 'Pants' %}selected{% endif %}>Pants</option>
+            <option value="Frocks" {% if product.category == 'Frocks' %}selected{% endif %}>Frocks</option>
+            <option value="Kurtis" {% if product.category == 'Kurtis' %}selected{% endif %}>Kurtis</option>
+            <option value="Sarees" {% if product.category == 'Sarees' %}selected{% endif %}>Sarees</option>
+        </select>
+
+
+
+        <label>Current Image:</label><br>
+        {% if product.image %}
+            <img src="{{ product.image.url }}" width="100"><br><br>
+        {% endif %}
+
+        <label>Change Image (optional):</label><br>
+        <input type="file" name="image"><br><br>
+
+        <button type="submit">Save Changes</button>
+        <a href="{% url 'admin_products' %}">⬅ Back to Product List</a>
+    </form>
+</div>
+</body>
+</html>

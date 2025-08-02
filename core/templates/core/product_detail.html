@@ -1,0 +1,116 @@
+{% load static %}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/product_detail.css' %}">
+</head>
+<body>
+
+<!-- Top Icons -->
+<div class="top-icons">
+    <a href="{% url 'cart' %}">🛒</a>
+    <a href="{% url 'wishlist' %}">❤️</a>
+</div>
+
+<div class="product-container">
+
+    <h1>{{ product.name }}</h1>
+
+    <div class="product-image">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        {% endif %}
+    </div>
+
+    <p class="price">₹{{ product.price }}</p>
+    <p class="description">{{ product.description }}</p>
+
+    <!-- ✅ Add to Cart Form -->
+    <form method="post" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group">
+                <label class="quantity-label">Size:</label>
+                <select name="selected_size" required>
+                    {% for size in product.sizes|split:"," %}
+                        <option value="{{ size }}">{{ size }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="quantity-label">Quantity:</label>
+                <input type="number" name="quantity" value="1" min="1">
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <form method="post" action="{% url 'add_to_cart' product.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="selected_size" value="{{ sizes.0 }}">
+                <input type="hidden" name="quantity" value="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+
+            <form method="post" action="{% url 'add_to_wishlist' product.id %}">
+                {% csrf_token %}
+                <button type="submit">Save to Wishlist</button>
+            </form>
+        </div>
+
+
+    <hr>
+
+    <!-- Review Form -->
+    <div class="form-section">
+        <h3>Leave a Review</h3>
+        <form method="POST">
+            {% csrf_token %}
+            <label>Rating:</label>
+            <div class="review-stars">
+                {% for i in "54321" %}
+                    <input type="radio" name="rating" value="{{ i }}" id="star{{ i }}">
+                    <label for="star{{ i }}">★</label>
+                {% endfor %}
+            </div>
+
+            <label for="comment">Comment:</label>
+            <textarea name="comment" rows="4" required></textarea>
+
+            <div class="action-buttons">
+                <button type="submit">Submit Review</button>
+            </div>
+        </form>
+    </div>
+
+    <hr>
+
+    <h3>Reviews</h3>
+    {% for review in reviews %}
+        <div class="review">
+            <strong>{{ review.user.username }}</strong> –
+            <span class="stars">
+                {% for i in "12345"|make_list %}
+                    {% if forloop.counter <= review.rating %}
+                        ★
+                    {% else %}
+                        ☆
+                    {% endif %}
+                {% endfor %}
+            </span>
+            <p>{{ review.comment }}</p>
+            <small>{{ review.created_at }}</small>
+        </div>
+    {% empty %}
+        <p>No reviews yet.</p>
+    {% endfor %}
+
+</div>
+
+<a href="{% url 'home' %}" class="home-link">🏠 Back to Home</a>
+
+</body>
+</html>

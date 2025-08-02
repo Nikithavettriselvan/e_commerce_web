@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+</head>
+<body>
+    <div class="profile-container">
+        <h1>👤 My Profile</h1>
+
+        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone No:</strong> {{ user.phone }}</p>
+        <p><strong>Address:</strong> {{ user.address|default:"Not provided" }}</p>
+
+        <div class="profile-buttons">
+            <a href="{% url 'edit_profile' %}" class="btn">Edit Profile</a>
+            <a href="{% url 'change_password' %}" class="btn">Change Password</a>
+        </div>
+
+        <a href="{% url 'home' %}" class="back-link">🏠 Back to Home</a>
+    </div>
+</body>
+</html>

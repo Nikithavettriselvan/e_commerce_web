@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - All Products</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/admin_products.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>🛍️ All Products</h1>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>stock</th>
+                    <th>Sizes</th>
+                    <th>category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>
+                        {% if product.image %}
+                            <img src="{{ product.image.url }}" width="50">
+                        {% endif %}
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td>₹{{ product.price }}</td>
+                    <td>{{ product.description|truncatewords:10 }}</td>
+                    <td>{{ product.stock }}</td> 
+                    <td>{{ product.sizes }}</td> 
+                    <td>{{ product.category}}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{% url 'edit_product' product.id %}" class="btn btn-edit"> Edit</a>
+                            <button type="button" class="btn btn-delete" onclick="openModal({{ product.id }}, '{{ product.name|escapejs }}')">Delete</button>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Back to Dashboard -->
+        <a class="back" href="{% url 'admin_dashboard' %}" style="color:blue">⬅ Back to Dashboard</a>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirm Deletion</h3>
+            <p>Are you sure you want to delete <strong><span id="modalProductName"></span></strong>?</p>
+            <div class="modal-buttons">
+                <a id="confirmDeleteBtn" class="btn-confirm" href="#">Yes, Delete</a>
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(productId, productName) {
+            document.getElementById("modalProductName").innerText = productName;
+            document.getElementById("confirmDeleteBtn").href = `/admin-panel/products/delete/${productId}/`;
+            document.getElementById("deleteModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("deleteModal").style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("deleteModal");
+            if (event.target === modal) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>

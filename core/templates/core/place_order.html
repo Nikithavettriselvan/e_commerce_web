@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Order</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/place_order.css' %}">
+</head>
+<body>
+    <h2>Review Your Cart</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <!-- Shipping Address -->
+        <label>Shipping Address:</label><br>
+        <textarea name="shipping_address" required></textarea><br><br>
+
+        <!-- Payment Method -->
+        <label>Payment Method:</label><br>
+        <input type="radio" name="payment_method" value="COD" checked> Cash on Delivery<br>
+        <input type="radio" name="payment_method" value="UPI"> UPI<br><br>
+
+        <!-- Cart Items -->
+        <ul>
+            {% for item in cart_items %}
+                <li>{{ item.product.name }} - ₹{{ item.product.price }} x {{ item.quantity }}</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Total -->
+        <h3>Total: ₹{{ total_price }}</h3>
+
+        <!-- Submit Button -->
+        <button type="submit">Place Order</button>
+    </form>
+
+    <a href="{% url 'home' %}" class="home-link">🏠 Back to Home</a>
+</body>
+</html>

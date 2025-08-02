@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Product</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/add_product.css' %}">
+</head>
+<body>
+    <div class="product-form-container">
+        <h2>Add New Product</h2>
+
+        {% if success %}
+            <p class="success">{{ success }}</p>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Product Name:</label>
+            <input type="text" name="name" autocomplete="off" required>
+
+            <label>Description:</label>
+            <textarea name="description"autocomplete="off" required></textarea>
+
+            <label>Price:</label>
+            <input type="number" name="price" autocomplete="off" step="0.01" required>
+
+            <label>Image:</label>
+            <input type="file" name="image">
+            
+            <label>Stock Quantity:</label>
+            <input type="number" name="stock" min="0" autocomplete="off" required>
+
+            <label for="sizes">Available Sizes (comma-separated):</label>
+            <input type="text" name="sizes" id="sizes" autocomplete="off" placeholder="e.g. S,M,L or 34,36,38">
+
+            <label for="category">Category:</label>
+            <input type="text" name="category" autocomplete="off"  required>
+
+
+            <button type="submit">Add Product</button>
+        </form>
+
+        <a class="back" href="{% url 'admin_dashboard' %}" style="color:blue">⬅ Back to Dashboard</a>
+    </div>
+</body>
+</html>

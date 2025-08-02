@@ -1,0 +1,155 @@
+/* Header container */
+.custom-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+/* Logo */
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 60px;
+    margin-right: 12px;
+}
+
+.brand-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #007bff; 
+    margin-left: 1px;
+    letter-spacing: 1px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    cursor: default;
+}
+
+.logo-section:hover .brand-name {
+    transform: scale(1.05);
+}
+
+/* Hamburger Menu Icon */
+.menu-toggle {
+    font-size: 28px;
+    cursor: pointer;
+    user-select: none;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    color: black;
+}
+
+.menu-toggle:hover {
+    background-color: #f0f0f0;
+}
+
+/* Centering the search bar between logo and menu */
+.search-bar-header {
+    flex: 1;
+    margin: 0 40px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Search form styling */
+.search-bar-header form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+    background-color: whitesmoke;
+    border-radius: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.search-bar-header form:hover {
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+}
+
+.search-bar-header input[type="text"] {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 50px 0 0 50px;
+    font-size: 16px;
+    outline: none;
+    background-color: transparent;
+}
+
+.search-bar-header button {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-bar-header button:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 80px; 
+    right: 30px; 
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    min-width: 200px;
+    z-index: 9999;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease;
+}
+
+/* Menu links */
+.dropdown-menu a {
+    padding: 12px 20px;
+    display: block;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    border-bottom: 1px solid #f1f1f1;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Last item without bottom border */
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+

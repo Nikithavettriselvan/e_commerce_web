@@ -1,0 +1,105 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 40px 20px;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    color: #1a1a1a;
+    letter-spacing: 0.5px;
+}
+
+.order-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 25px;
+    margin: 20px auto;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    max-width: 750px;
+    border-left: 6px solid #007BFF;
+    transition: 0.3s ease;
+}
+
+.order-card:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.order-card strong {
+    font-size: 20px;
+    color: #007BFF;
+}
+
+.date, .address, .total {
+    display: block;
+    margin-top: 6px;
+    font-size: 14.5px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.items-list {
+    margin-top: 15px;
+    padding-left: 20px;
+    font-size: 15px;
+    color: #444;
+}
+
+.items-list li {
+    margin-bottom: 6px;
+    list-style: disc;
+}
+
+.no-orders {
+    text-align: center;
+    font-size: 18px;
+    color: #888;
+    padding-top: 60px;
+}
+
+.home-link {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    margin-top: 40px;
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.home-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+.status-label {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-label.shipped {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.status-label.delivered {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-label.cancelled {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}E-Shop{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+    <!-- 🔝 HEADER -->
+    <header class="custom-header">
+    <div class="logo-section">
+        <img src="{% static 'images/logo.jpg' %}" alt="Logo" class="logo-img">
+        <span class="brand-name">Quick-pic</span>
+    </div>
+
+    <!-- Wrap search form inside a flex container -->
+    <div class="search-bar-header">
+        <form method="GET" action="{% url 'home' %}">
+            <input type="text" name="q" placeholder="Search products..." value="{{ request.GET.q }}" autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">&#9776;</div>
+    </header>
+
+    <!-- 🍔 DROPDOWN MENU -->
+    <div id="dropdownMenu" class="dropdown-menu">
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}">👤 Profile</a>
+            <a href="{% url 'cart' %}">🛒 Cart</a>
+            <a href="{% url 'order_history' %}">🧾 Orders</a>
+            <a href="{% url 'wishlist' %}">❤️ Wishlist</a>
+            <a href="{% url 'logout' %}">🚪 Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}">🔐 Login</a>
+            <a href="{% url 'register' %}">📝 Register</a>
+            <a href="{% url 'admin_login' %}">⚙️ Admin Login</a>
+        {% endif %}
+    </div>
+
+    <!-- 🔽 PAGE CONTENT -->
+    <main>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="alert {{ message.tags }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- 📜 FOOTER (optional) -->
+    <footer class="footer">
+        <p>&copy; 2025 E-Shop. All rights reserved.</p>
+    </footer>
+
+    <!-- 🔧 SCRIPT -->
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("dropdownMenu");
+            menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        }
+
+        // Close menu if clicked outside
+        document.addEventListener("click", function(event) {
+            const menu = document.getElementById("dropdownMenu");
+            const toggle = document.querySelector(".menu-toggle");
+            if (!menu.contains(event.target) && !toggle.contains(event.target)) {
+                menu.style.display = "none";
+            }
+        });
+    </script>
+</body>
+</html>

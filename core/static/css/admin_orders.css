@@ -1,0 +1,89 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fc;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.order-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+ 
+    transition: background-color 0.3s ease;
+}
+
+.order-card h2 {
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.order-card p {
+    margin: 6px 0;
+}
+
+form {
+    margin-top: 15px;
+}
+
+select {
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    padding: 8px 14px;
+    margin-left: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.alert.success {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+.status-pending {
+    background-color: #ead1b7;
+    border-left: 5px solid #fd7e14;
+}
+
+.status-shipped {
+    background-color: #c3c9f0;
+    border-left: 5px solid #3399ff;
+}
+
+.status-delivered {
+    background-color: #b5ecc5;
+    border-left: 5px solid #28a745;
+}
+
+.status-cancelled {
+    background-color: #e3a5a2;
+    border-left: 5px solid #dc3545;
+}

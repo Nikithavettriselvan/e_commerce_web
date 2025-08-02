@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/order_history.css' %}">
+</head>
+<body>
+    <h1>My Order History</h1>
+
+    {% if orders %}
+        {% for order in orders %}
+            <div class="order-card">
+                <strong>Order #{{ order.id }}</strong><br>
+                <span class="date">Placed on: {{ order.created_at }}</span><br>
+                <span class="address">Shipping Address: {{ order.shipping_address }}</span><br>
+                <span class="total">Total: ₹{{ order.total_price }}</span>
+
+                <ul class="items-list">
+                    {% for item in order.items.all %}
+                        <li>{{ item.product.name }} – ₹{{ item.price }} × {{ item.quantity }}</li>
+                    {% endfor %}
+                </ul>
+                <span class="status-label {{ order.status }}">{{ order.get_status_display }}</span>
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="no-orders">You haven't placed any orders yet.</p>
+    {% endif %}
+    
+    <a href="{% url 'home' %}" class="home-link">🏠 Back to Home</a>
+</body>
+</html>
