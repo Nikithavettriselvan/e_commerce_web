@@ -7,7 +7,7 @@ This is a demo e-commerce website built using **Django**, **HTML**, **CSS**, and
 ## 🎥 Demo Video
 
 Watch the demo video here:  
-➡️ [Click to watch](#) *(Add your video link here after upload)*
+➡️ https://drive.google.com/file/d/1f_O36nAtM9UgCIj2fXGzwpW2XFEGBq44/view?usp=sharing
 
 ---
 
